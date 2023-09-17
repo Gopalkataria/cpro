@@ -6,7 +6,7 @@
 
 int main()
 {
-	int n, grid[100][100], i, xa, xb, ya, yb, x, y, ar = 0 ;
+	int n, grid[100][100], i, xa, xb, ya, yb, x, y, ar = 0;
 	for (x = 0; x < 100; x++)
 		for (y = 0; y < 100; y++)
 			grid[x][y] = 0;
@@ -24,8 +24,8 @@ int main()
 	}
 	for (x = 0; x < 100; x++)
 		for (y = 0; y < 100; y++)
-			ar += grid[x][y] ;
+			ar += grid[x][y];
 
-	printf("%d\n", ar ) ; 
+	printf("%d\n", ar);
 	return 0;
 }

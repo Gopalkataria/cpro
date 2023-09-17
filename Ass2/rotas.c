@@ -1,7 +1,6 @@
-// Gopal Kataria 
-// ECD 2023 112 006 
+// Gopal Kataria
+// ECD 2023 112 006
 // IIIT Hyderabad
-
 
 #include <stdio.h>
 

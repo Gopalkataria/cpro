@@ -6,13 +6,13 @@
 
 int main()
 {
-	int x = 0, ones = 0;
-	scanf("%d", &x);
+	int money = 0, invested = 0;
+	scanf("%d", &money);
 	do
 	{
-		ones += x & 1;
-		x >>= 1;
-	} while (x != 0);
-	printf("%d\n", ones);
+		invested += money & 1;
+		money >>= 1;
+	} while (money != 0);
+	printf("%d\n", invested);
 	return 0;
 }

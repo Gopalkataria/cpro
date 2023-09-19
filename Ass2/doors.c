@@ -6,20 +6,19 @@
 
 int main()
 {
-  int n = 0, door = 0;
+  int n = 0, doorstate = 0;
   scanf("%d", &n);
   for (int x = 1; x <= n; x++)
   {
-    door = 0;
+    doorstate = 0; // all doors closed in begining
     for (int y = 1; y <= x; y++)
     {
       if (x % y == 0)
       {
-        door += 1;
-        door &= 1;
+        doorstate ^= 1; // swap state
       }
     }
-    if (door)
+    if (doorstate) // door open
     {
       printf("%d ", x);
     }

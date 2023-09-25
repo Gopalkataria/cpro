@@ -1,7 +1,3 @@
-// Gopal Kataria 
-// ECD 2023 112 006 
-// IIIT Hyderabad
-
 #include <stdio.h>
 // #include <math.h>
 
@@ -17,8 +13,7 @@ int main()
     //     for (y = 0; y < n; y++)
     //         scanf("%d", &grid[x][y]);
 
-
-
     printf("\n");
     return 0;
 }
+

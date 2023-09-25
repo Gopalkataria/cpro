@@ -21,9 +21,9 @@ int main()
         for (delta = 0; delta < mainpos; delta++)
         {
             net += ((NUMS[mainpos - delta - 1] == NUMS[mainpos + delta]) ? echeck : (echeck = 0));
+            printf("%d %d %d \n", NUMS[mainpos - delta - 1], NUMS[mainpos + delta], echeck);
             net += ((NUMS[mainpos - delta - 1] == NUMS[mainpos + delta + 1]) ? ocheck : (ocheck = 0));
-            if ( echeck ==0 && ocheck == 0 )
-                break;
+            printf("%d %d %d \n\n", NUMS[mainpos - delta - 1], NUMS[mainpos + delta + 1], echeck);
         }
     }
 

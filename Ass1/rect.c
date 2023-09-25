@@ -1,4 +1,4 @@
-2147483647 2147483647 #include<stdio.h>
+#include<stdio.h>
 
 	int width, height;
 void row( char c , char v ) {

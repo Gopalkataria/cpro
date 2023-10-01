@@ -1,18 +1,23 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
+int cmp(const void *a, const void *b)
+{
+    return (*(char *)a - *(char *)b);
+}
 
 #define ps(x) printf("%s -\n", x);
 #define pc(x) printf("%c -\n", x);
 #define pi(x) printf("%i -\n", x);
 
 char PERMS[40320][8];
-int n = 0;
+int N = 0;
 
 void savetoPERMS(char *str)
 {
-    strcpy(PERMS[n], str);
-    n++;
+    strcpy(PERMS[N], str);
+    N++;
 }
 
 // #define ps(x) printf(" %s ", x)
@@ -28,6 +33,24 @@ void withoutn(char *inst, char *new, int remove, int len)
         new[i - 1] = inst[i];
     }
 }
+void withoutc(char *inst, char *new, char remove , int len)
+{
+    int i;
+    for (i = 0; i < len ; i++)
+    {   
+        if (inst[i] == remove)
+        {
+            break;
+        }
+        new[i] = inst[i] ;
+        
+    }
+    i++ ; 
+    for (; i < len; i++)
+    {
+        new[i - 1] = inst[i];
+    }
+}
 
 int main()
 {
@@ -37,9 +60,9 @@ int main()
     char inp[8];
     scanf("%s", inp);
     perms(inp, strlen(inp));
-    printf("%d\n", n);
+    printf("%d\n", N);
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < N; i++)
         printf("%s\n", PERMS[i]);
     return 0;
 }
@@ -51,7 +74,7 @@ void printvariation( char * previnp , char * inpt , int l ) {
     strcpy(prev, previnp);
     // printf("%d" , l ) ;  
     if ( l == 1) {
-        printf("%s  ", prev);
+        printf("%s", prev);
         printf("%c --\n", *inps);
     } else {
         char uniq[10] ;
@@ -70,16 +93,18 @@ void printvariation( char * previnp , char * inpt , int l ) {
             if ( flag ) {
                 uniq[count] = inps[i] ; 
                 count++ ; 
-                strcat(prev, &inps[i] );
-                // printf("%s -o\n" , prev ); 
-                char new[10] ;
+                // strcat(prev, &inps[i] );
+                // // printf("%s -o\n" , prev ); 
+                // char new[10] ;
 
-                withoutn(inps, new, i, l) ; 
-                // printf("%s \n", new) ; 
-                printvariation( prev , new , l-1) ; 
+                // withoutn(inps, new, i, l) ; 
+                // // printf("%s \n", new) ; 
+                // printvariation( prev , new , l-1) ; 
                 
             }            
         }
+        qsort(uniq,count,sizeof(int),cmp ) ; 
+
         // printf("DEBUG %s" , uniq) ; 
         
     }

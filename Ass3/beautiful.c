@@ -37,11 +37,11 @@ int main()
 
     if (up & low & unique)
     {
-        printf("YES\n");
+        printf("Yes\n");
     }
     else
     {
-        printf("NO\n");
+        printf("No\n");
         debug(up);
         debug(low);
         debug(unique);

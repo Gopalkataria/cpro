@@ -1,8 +1,17 @@
 // Gopal Kataria
 
 #include <stdio.h>
-#include <math.h>
+// #include <math.h>
 // #include <stdlib.h>
+
+#include <stdio.h>
+#include <string.h>
+
+#define ps(x) printf("%s -\n", x);
+#define pc(x) printf("%c -\n", x);
+#define pi(x) printf("%i -\n", x);
+
+/// @brief initialize with some shorthand fuctions for code readability and convinience 
 void init()
 {
     
@@ -18,6 +27,8 @@ void init()
 
 #define min(a, b) ((a) < (b) ? (a) : (b)) // min function
 #define max(a, b) ((a) > (b) ? (a) : (b)) // max function 
+
+#define iffy( c, i , e) ((c) ? (i) : (e) ) // if else shorter  
 }
 
 int cmp(const void *a, const void *b)
@@ -30,18 +41,14 @@ int main()
     init();
     int n = 0, x, y, i, j, a = 10;
 
-    // input(n) ;
-
-    // for (x = 0; x < n; x++)
-    //     for (y = 0; y < n; y++)
-    //         scanf("%d", &grid[x][y]);
+    
 
     input(x);
     fori(y, x)
     {
         printL(y);
     }
-    ford(k, 12) printS(k);
+    ford(k, 12) printS(iffy(k>5, k , 0 ));
     
 
     printS(a);

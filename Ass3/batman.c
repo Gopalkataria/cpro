@@ -12,11 +12,7 @@ int findpaths(int x, int y)
     {
         return 0;
     }
-   
-    if (x == 1)
-    {
-        return 1;
-    }
+
     for (int i = 0; i < k; i++)
     {
         if (forbiddenpaths[i][0] == x && forbiddenpaths[i][1] == y)
@@ -24,6 +20,11 @@ int findpaths(int x, int y)
             return 0;
         }
     }
+    if (x == 1)
+    {
+        return 1;
+    }
+   
     if (allpaths[x][y] == -1)
     {
         lt = findpaths(x - 2, y - 1);

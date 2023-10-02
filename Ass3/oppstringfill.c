@@ -1,40 +1,59 @@
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
 
-#define min(a, b) ((a) < (b) ? (a) : (b)) // min function
-#define max(a, b) ((a) > (b) ? (a) : (b)) // max function
+int dist( char a , char b ){
+    return  abs((int)(b-a)) ; 
+}
 
-#define ps(x) printf("%s -\n", x);
-#define pc(x) printf("%c -\n", x);
-#define pi(x) printf("%i -\n", x);
+int main() {
 
-int main()
-{
+    int n , k ; 
+    scanf("%d %d", &n , &k) ; 
+    char inp[n+1] ; 
+    scanf("%s" , inp) ; 
 
-    int m, n = 0, k, p;
-    scanf("%d %d", &n, &k);
-    char inp[n];
-    pi(k)
-        scanf("%s", inp);
-    if (k > (n * 25))
+    if (k > n*25)
     {
-        printf("-1\n");
-        return 0;
+        printf("-1\n") ; 
+        return 0 ; 
+    }
+    for (int i = 0; (i < n ) ; i++)
+    {
+        int d = dist( inp[i] , 'a')  ;
+        // printf("\n%d %d %d ", inp[i], d, k);
+        if ( d < k )
+        {
+            inp[i] = (char) ( (int)inp[i] - d )  ; 
+            k-= d ; 
+        } else if (d > k )
+        {
+            inp[i] = (char)((int)inp[i] - k);
+            k = 0 ;
+
+        }
+        // printf("\n%d %d %d ", inp[i], d, k);
+        
+    }
+    for (int i = n-1 ; (i > -1); i--)
+    {
+        int d = dist(inp[i], 'z');
+        // printf("\n%d %d %d ", inp[i], d, k);
+        if (d < k)
+        {
+            inp[i] = (char)((int)inp[i] + d);
+            k -= d;
+        }
+        else if (d > k)
+        {
+            inp[i] = (char)((int)inp[i] + k);
+            k = 0;
+        }
+        // printf("\n%d %d %d ", inp[i], d, k);
     }
 
-    for (int i = 0; i < n; i++)
-    {
-        m = min(k, 25);
-        p = (int)(inp[i] - 'a');
-        p = (p + 26 - m) % 26;
-        inp[i] = (char)(p + 'a');
-        k -= m;
+    printf("%s\n", inp) ; 
+    
+    
 
-        if (k == 0)
-            break;
-    }
-
-    printf("%s\n", inp);
-
-    return 0;
+    return 0 ; 
 }

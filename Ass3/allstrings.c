@@ -2,46 +2,46 @@
 #include <stdlib.h>
 #include <string.h>
 
-char PERMS[40321][9];
+char WORDS[40321][9];
 int N = 0;
 
-void savetoPERMS(char *str)
+void pushtoWORDS(char *str) // push all words to a global array
 {
-    strcpy(PERMS[N], str);
+    strcpy(WORDS[N], str);
     N++;
 }
 
-int cmp_char(const void *a, const void *b)
+int cmp_char(const void *a, const void *b) // for qsort 
 {
     return (*(char *)a - *(char *)b);
 }
 
-void sort_char_arr(char *arr, int size)
+void sort_char_arr(char *arr, int size) // for sorting the unique elems
 {
     qsort(arr, size, sizeof(char), cmp_char);
 }
 
-int unique_chars(char *destination, char *source)
+int unique_chars(char *destination, char *source) // find unique chars of a string
 {
-    int len = strlen(source), count = 0, flag;
+    int len = strlen(source), count = 0, isuniq;
     char uniq[9];
     for (int i = 0; i < len; i++)
     {
-        flag = 1; // assume is unique
-        for (int j = i + 1; j < len; j++)
+        isuniq = 1;                       // assume is unique
+        for (int j = i + 1; j < len; j++) // compare with others
         {
             if (source[i] == source[j])
             {
-                flag = 0;
+                isuniq = 0;
             }
         }
-        if (flag)
+        if (isuniq)
         {
             uniq[count] = source[i];
             count++;
         }
     }
-    uniq[count] = '\0';
+    uniq[count] = '\0'; // terminating the string
     strcpy(destination, uniq);
 
     return count;
@@ -49,20 +49,20 @@ int unique_chars(char *destination, char *source)
 
 void withoutchar(char *destination, char *source, char unwanted)
 {
-    int l = strlen(source), i = 0, flag = 1 ;
+    int len = strlen(source), i = 0, islooking = 1 ;
     char new[9] ; 
-    for (i = 0; i < l+1; i++)
+    for (i = 0; i < len+1; i++)
     {
         // printf("tf");
-        if ((source[i] == unwanted) && flag)
+        if ((source[i] == unwanted) && islooking)
         {
-            flag = 0;
+            islooking = 0;
             continue;
         }
         else
         {
             // printf("t");
-            if (flag)
+            if (islooking)
                 new[i] = source[i];
             else
                 new[i - 1] = source[i];
@@ -81,10 +81,10 @@ void variations(char *prev, char *inp)
         if (strlen(inp) == 1)
         {
             char output[9] ; 
-            strcpy(output , prev) ; 
-            strcat(output , inp) ; 
-            savetoPERMS(output) ; 
-        // printf("%s%s\n", prev, inp);
+            strcpy(output , prev) ;
+            strcat(output, inp);
+            pushtoWORDS(output);
+            // printf("%s%s\n", prev, inp);
         } else {
         
     
@@ -113,7 +113,7 @@ int main()
     printf("%d\n", N) ; 
     for (int x = 0; x < N; x++)
     {
-        printf("%s\n", PERMS[x] ); 
+        printf("%s\n", WORDS[x]);
     }
     
     return 0;

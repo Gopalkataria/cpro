@@ -14,7 +14,7 @@ int cmp(const void *a, const void *b)
 char PERMS[40320][8];
 int N = 0;
 
-void savetoPERMS(char *str)
+void pushtoWORDS(char *str)
 {
     strcpy(PERMS[N], str);
     N++;

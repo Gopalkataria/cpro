@@ -1,9 +1,5 @@
 from itertools import permutations
 
-inp = input()
-words = [ "".join(x) for x in permutations(inp) ]
-words.sort()
-
+words = [ "".join(x) for x in permutations(sorted(input())) ]
 print( len(words))
-for word in words :
-    print(word)
+print("\n".join(words))

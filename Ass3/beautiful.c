@@ -44,9 +44,6 @@ int main()
     else
     {
         printf("No\n");
-        debug(up);
-        debug(low);
-        debug(unique);
     }
 
     return 0;

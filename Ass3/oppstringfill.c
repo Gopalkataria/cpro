@@ -15,7 +15,7 @@ int main()
     scanf("%d %d", &n, &k);
     char inp[n];
     pi(k)
-    scanf("%s", inp);
+        scanf("%s", inp);
     if (k > (n * 25))
     {
         printf("-1\n");
@@ -26,7 +26,7 @@ int main()
     {
         m = min(k, 25);
         p = (int)(inp[i] - 'a');
-        p = (p + 26- m) % 26;
+        p = (p + 26 - m) % 26;
         inp[i] = (char)(p + 'a');
         k -= m;
 

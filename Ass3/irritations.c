@@ -27,7 +27,7 @@ int irritation(int i)
     }
     if (MEM[i] = -1)
     {
-    MEM[i] =  irrlist[i] + irritation(i + irrlist[i]);
+        MEM[i] = irrlist[i] + irritation(i + irrlist[i]);
     }
     return MEM[i];
 }
@@ -40,10 +40,10 @@ void testsolve()
         MEM[i] = -1;
     irrlist = (int *)malloc(sizeof(int) * (n + 1));
     int irr, maxirr = 0;
-    for (int i = 1; i < n + 1; i++){
+    for (int i = 1; i < n + 1; i++)
+    {
         input(irrlist[i]);
-       
-}
+    }
 
     for (int i = 1; i < n + 1; i++)
     {

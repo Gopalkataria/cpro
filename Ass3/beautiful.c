@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 
-#define debug(x) {}
-// #define debug(x) printf(" %d ", x) 
+#define debug(x) \
+    {            \
+    }
+// #define debug(x) printf(" %d ", x)
 
 int main()
 {
@@ -14,9 +16,9 @@ int main()
     int unique = 1, up = 0, low = 0;
     for (int i = 0; i < n; i++) // check if all characters are unique
         for (int j = 0; j < n; j++)
-            if (inp[i] == inp[j] && i!=j)
+            if (inp[i] == inp[j] && i != j)
             {
-                debug(inp[i]) ; 
+                debug(inp[i]);
                 unique = 0;
                 break;
             }
@@ -28,7 +30,7 @@ int main()
             break;
         }
 
-    for (int i = 0; i < n; i++) // check if at least one is uppercase 
+    for (int i = 0; i < n; i++) // check if at least one is uppercase
         if ((inp[i] - 'A') < 26)
         {
             up = 1;

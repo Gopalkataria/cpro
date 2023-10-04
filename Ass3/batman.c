@@ -3,12 +3,16 @@
 
 #define min(a, b) ((a) < (b) ? (a) : (b)) // min function
 #define max(a, b) ((a) > (b) ? (a) : (b)) // max function
+#define lint long long int 
 
-int N, M, k, **allpaths;
-int findpaths(int x, int y)
+lint N, M, k, **allpaths;
+
+int charmoveup ( )
+
+lint findpaths(lint x, lint y)
 {
-    int i, tl, tr, rt, lt;
-    if (x > N || x <= 0 || y > M || y <= 0)
+    lint i, tl, tr, rt, lt;
+    if ((x > N) || (x <= 0) || (y > M) || (y <= 0))
     {
         return 0;
     }
@@ -17,53 +21,45 @@ int findpaths(int x, int y)
         return 1;
     }
 
-    if (allpaths[x][y] == -1)
+       if (allpaths[x][y] == -1)
     {
-        lt = findpaths(x - 2, y - 1);
-        rt = findpaths(x - 2, y + 1);
-        tl = findpaths(x - 1, y - 2);
-        tr = findpaths(x - 1, y + 2);
-        allpaths[x][y] = (lt + rt + tl + tr);
+        lt = findpaths(x - 2, y - 1) % 1000000007;
+        rt = findpaths(x - 2, y + 1) % 1000000007;
+        tl = findpaths(x - 1, y - 2) % 1000000007;
+        tr = findpaths(x - 1, y + 2) % 1000000007;
+        allpaths[x][y] = (lt + rt + tl + tr) % 1000000007;
     }
-    return allpaths[x][y];
+        return (allpaths[x][y] % 1000000007);
 }
 
 int main()
 {
-    scanf("%d %d %d", &N, &M, &k);
-    int maxpaths = 0, maxpaths_miny = 1, paths;
+    scanf("%lld %lld %lld", &N, &M, &k);
+    lint maxpaths = 0, maxpaths_miny = 1, paths;
 
-    allpaths = (int **)malloc((N + 1) * sizeof(int *));
+    allpaths = (lint **)malloc((N + 1) * sizeof(lint *));
 
-    for (int x = 1; x <= N; x++)
+    for (lint x = 1; x <= N; x++)
     {
-        allpaths[x] = (int *)malloc((M + 1) * sizeof(int));
-        for (int y = 1; y <= M; y++)
+        allpaths[x] = (lint *)malloc((M + 1) * sizeof(lint));
+        for (lint y = 1; y <= M; y++)
             allpaths[x][y] = -1; // default memory val = -1
     }
 
-    for (int i = 0; i < k; i++)
+    for (lint i = 0; i < k; i++)
     {
-        int x, y;
-        scanf("%d %d", &x, &y);
+        lint x, y;
+        scanf("%lld %lld", &x, &y);
         allpaths[x][y] = 0; // set all forbidden path mem to 0
     }
 
-    for (int y = 1; y <= M; y++)
+    for (lint y = 1; y <= M; y++)
     {
         paths = findpaths(N, y);
-        if (paths > maxpaths)
-        {
-            maxpaths = paths;
-            maxpaths_miny = y;
-        }
-        else if (paths = maxpaths)
-        {
-            maxpaths_miny = min(maxpaths_miny, y);
-        }
+        paths = paths % 1000000007;
+        printf("%lld ", paths);
     }
 
-    printf("%d %d\n", maxpaths_miny, maxpaths % 1000000007);
-
+    printf("\n");
     return 0;
 }

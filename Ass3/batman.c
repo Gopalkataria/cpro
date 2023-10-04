@@ -6,9 +6,6 @@
 #define lint long long int 
 
 lint N, M, k, **allpaths;
-
-int charmoveup ( )
-
 lint findpaths(lint x, lint y)
 {
     lint i, tl, tr, rt, lt;

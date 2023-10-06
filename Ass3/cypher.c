@@ -1,67 +1,91 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define min(a, b) ((a) < (b) ? (a) : (b)) // min function
 #define max(a, b) ((a) > (b) ? (a) : (b)) // max function
+#define prints(x) printf("%s    ", x)
+#define print(x) printf("%d ", x)
+#define I (int)
+#define C (char)
 
-int dist(char a, char b)
+int n, k;
+char *inp; 
+int *tracks ; 
+
+int chardist(char a, char b)
 {
-    return abs((int)(b - a));
+    return abs((int)b - (int)a);
+}
+
+void backtrack(int i)
+{
+    k += tracks[i] ;
+    inp[i] = C(I inp[i] + tracks[i]);
+    tracks[i] = 0 ; 
+    int step = min(k, chardist(inp[i], 'z'));
+    tracks[i] = step;
+    inp[i] = C(I inp[i] + step);
+    k -= step;
+}
+
+void fronttrack(int i)
+{
+    int step = min( k , chardist(inp[i], 'a')) ; 
+    tracks[i] = step ; 
+    inp[i] = C (I inp[i] - step )  ;
+    k-= step ; 
+}
+
+int strdist( char *a  , char * b ){
+    int l = strlen(a) , d = 0;
+    for (int i = 0; i < l; i++)
+    {
+            d+= chardist( a[i],b[i]);
+    }
+    return d ; 
+
 }
 
 int main()
 {
 
-    int n, k;
     scanf("%d %d", &n, &k);
-    char inp[n + 1];
+    inp = (char *)calloc((n+1)*sizeof(char), sizeof(char)) ;
+    tracks = (int * )calloc(n * sizeof(int), sizeof(int));
     scanf("%s", inp);
 
     int maxd = 0;
     for (int i = 0; i < n; i++)
     {
-        maxd += max(dist(inp[i], 'a'), dist(inp[i], 'z'));
+        maxd += max(chardist(inp[i], 'a'), chardist(inp[i], 'z'));
     }
     if (k > maxd)
     {
-        printf("-1");
+        printf("-1\n");
         return 0;
     }
-
-    for (int i = 0; (i < n); i++)
+    char new[n+1]  ; 
+    strcpy(new, inp) ; 
+    for (int i = 0; i < n; i++)
     {
-        int d = dist(inp[i], 'a');
-        // printf("\n%d %d %d ", inp[i], d, k);
-        if (d < k)
-        {
-            inp[i] = (char)((int)inp[i] - d);
-            k -= d;
-        }
-        else if (d > k)
-        {
-            inp[i] = (char)((int)inp[i] - k);
-            k = 0;
-        }
-        // printf("\n%d %d %d ", inp[i], d, k);
+        fronttrack(i) ; 
+        if (k == 0 )
+            break; 
     }
-    for (int i = n - 1; (i > -1); i--)
+    if (k!=0)
+    for (int i = n-1; i >= 0  ; i--)
     {
-        int d = dist(inp[i], 'z');
-        // printf("\n%d %d %d ", inp[i], d, k);
-        if (d < k)
-        {
-            inp[i] = (char)((int)inp[i] + d);
-            k -= d;
-        }
-        else if (d > k)
-        {
-            inp[i] = (char)((int)inp[i] + k);
-            k = 0;
-        }
-        // printf("\n%d %d %d ", inp[i], d, k);
+        backtrack(i) ; 
+        if (k==0)
+            break;
+        
     }
-
-    printf("%s\n", inp);
+    
+    // printf("%s\n %d \n", inp, strdist(new,inp));
+    // for (int i = 0; i < n; i++)
+    //     print(tracks[i]) ; 
+    printf("%s\n",inp) ; 
 
     return 0;
 }

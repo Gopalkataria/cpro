@@ -2,3 +2,4 @@
 *.pdf
 *.test
 *.test.out
+test.c

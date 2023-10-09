@@ -4,7 +4,7 @@
 
 #define min(a, b) ((a) < (b) ? (a) : (b)) // min function
 #define max(a, b) ((a) > (b) ? (a) : (b)) // max function
-#define prints(x) printf("%s    ", x)
+#define prints(x) printf("%s ", x)
 #define print(x) printf("%d ", x)
 #define I (int)
 #define C (char)
@@ -18,15 +18,23 @@ int chardist(char a, char b)
     return abs((int)b - (int)a);
 }
 
+void fronttrack(int i );  
+
 void backtrack(int i)
 {
     k += tracks[i] ;
     inp[i] = C(I inp[i] + tracks[i]);
     tracks[i] = 0 ; 
+    if (I inp[i] <= I 'm')
+    {
     int step = min(k, chardist(inp[i], 'z'));
     tracks[i] = step;
     inp[i] = C(I inp[i] + step);
     k -= step;
+        
+    } else {
+        fronttrack( i ) ; 
+    }
 }
 
 void fronttrack(int i)

@@ -37,7 +37,6 @@ void testsolve()
 {
     input(n);
     MEM = (int *)calloc(sizeof(int) * (n + 1), sizeof(int));
-  
     irrlist = (int *)malloc(sizeof(int) * (n + 1));
     int irr, maxirr = 0;
     for (int i = 1; i < n + 1; i++)

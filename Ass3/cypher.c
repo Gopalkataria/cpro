@@ -75,25 +75,30 @@ int main()
     }
     char new[n+1]  ; 
     strcpy(new, inp) ; 
+    
     for (int i = 0; i < n; i++)
     {
         fronttrack(i) ; 
         if (k == 0 )
             break; 
     }
+    // printf("%s %d \n", inp, 92 - strdist(new, inp));
+
     if (k!=0)
     for (int i = n-1; i >= 0  ; i--)
     {
+        // printf("%s %d \n", inp, 92 - strdist(new, inp));
+
         backtrack(i) ; 
         if (k==0)
             break;
         
     }
     
-    // printf("%s\n %d \n", inp, strdist(new,inp));
     // for (int i = 0; i < n; i++)
     //     print(tracks[i]) ; 
     printf("%s\n",inp) ; 
+    
 
     return 0;
 }

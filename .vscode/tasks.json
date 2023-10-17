@@ -24,8 +24,8 @@
 				"cwd": "${fileDirname}"
 			},
 			"group": "build",
-			"detail": "Compile and Run code, use inp.test and output.test"
-		} , 
+			"detail": "Compile and Run code, use filename.test and filename.test.out"
+		},
 		{
 			"label": "Common Build and Run",
 			"type": "process",
@@ -46,10 +46,15 @@
 				"/home/enoria/cpro/output.test"
 			],
 			"options": {
-				"cwd": "${fileDirname}"
+				"cwd": "${fileDirname}" , 
+				  
 			},
-			"group": "build",
-			"detail": "Compile and Run code, use inp.test and output.test"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "Compile and Run code, use inp.test and output.test",
+			"problemMatcher": []
 		}
 	]
 }

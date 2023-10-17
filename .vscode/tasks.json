@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Custom Build and Run",
+			"type": "process",
+			"command": "/home/enoria/cpro/build.sh",
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": false,
+				"clear": false
+			},
+			"args": [
+				"${file}",
+				"${fileDirname}/${fileBasenameNoExtension}.out",
+				"${fileDirname}/${fileBasenameNoExtension}.test",
+				"${fileDirname}/${fileBasenameNoExtension}.test.out"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"group": "build",
+			"detail": "Compile and Run code, use inp.test and output.test"
+		} , 
+		{
+			"label": "Common Build and Run",
+			"type": "process",
+			"command": "/home/enoria/cpro/build.sh",
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": false,
+				"clear": false
+			},
+			"args": [
+				"${file}",
+				"${fileDirname}/${fileBasenameNoExtension}.out",
+				"/home/enoria/cpro/input.test",
+				"/home/enoria/cpro/output.test"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"group": "build",
+			"detail": "Compile and Run code, use inp.test and output.test"
+		}
+	]
+}

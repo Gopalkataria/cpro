@@ -24,12 +24,40 @@
 				"cwd": "${fileDirname}"
 			},
 			"group": "build",
-			"detail": "Compile and Run code, use filename.test and filename.test.out"
+			"detail": "Use filename.test and filename.test.out, compile and Run code, "
 		},
 		{
 			"label": "Common Build and Run",
 			"type": "process",
 			"command": "/home/enoria/cpro/build.sh",
+			"isBackground": true,
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"args": [
+				"${file}",
+				"${fileDirname}/${fileBasenameNoExtension}.out",
+				"/home/enoria/cpro/input.test",
+				"/home/enoria/cpro/output.test"
+			],
+			"options": {
+				"cwd": "${fileDirname}",
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "Use input.test and output.test, compile and run code"
+		},
+		{
+			"label": "Timed Build and Run",
+			"type": "process",
+			"command": "/home/enoria/cpro/buildtimed.sh",
 			"isBackground": true,
 			"presentation": {
 				"echo": true,
@@ -42,19 +70,14 @@
 			"args": [
 				"${file}",
 				"${fileDirname}/${fileBasenameNoExtension}.out",
-				"/home/enoria/cpro/input.test",
-				"/home/enoria/cpro/output.test"
+				"${fileDirname}/${fileBasenameNoExtension}.test",
+				"${fileDirname}/${fileBasenameNoExtension}.test.out"
 			],
 			"options": {
-				"cwd": "${fileDirname}" , 
-				  
+				"cwd": "${fileDirname}"
 			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"detail": "Compile and Run code, use inp.test and output.test",
-			"problemMatcher": []
+			"group": "build",
+			"detail": "Compile and Run, check execution time, use filename.test and filename.test.out"
 		}
 	]
 }

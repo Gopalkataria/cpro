@@ -2,4 +2,5 @@
 
 gcc -Wall $1 -o $2
 
-$2 < $3 > $4
+timeout 1 $2 < $3 > /tmp/cproutput || echo "TLE" > /tmp/cproutput
+mv /tmp/cproutput $4

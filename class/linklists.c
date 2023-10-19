@@ -16,10 +16,10 @@ typedef node *Linkedlist;
 
 void print_Linkedlist(Linkedlist l)
 {
-    printf("---\n");
+    printf("\n---\n");
     while (l != NULL)
     {
-        printf("%.2d \n", l->data.num);
+        printf("%d \n", l->data.num);
         l = l->next;
     }
     printf("---\n");
@@ -57,17 +57,75 @@ Linkedlist preppend_Linkedlist(Linkedlist l, customdata newdata)
 
 void removeduplicates_Linkedlist(Linkedlist l)
 {
-    Linkedlist t;
-    for (Linkedlist i = l; i != NULL; i = i->next)
-        for (Linkedlist j = i; j->next != NULL; j = j->next)
+    Linkedlist i, j, t;
+    for (i = l; i != NULL; i = i->next)
+    {
+        j = i ; 
+        while( j->next != NULL)
+        {
             if (i->data.num == j->next->data.num)
             {
                 t = j->next;
                 j->next = j->next->next;
                 free(t);
-                if (j->next == NULL)
-                    break;
             }
+            else
+            {
+                j = j->next;
+            }
+        }
+    }
+}
+
+void removeduplicatesrecursive_Linkedlist(Linkedlist l)
+{
+    if (l == NULL || l->next == NULL)
+        return;
+
+    if (l->data.num == l->next->data.num)
+    {
+        Linkedlist t = l->next;
+        l->next = l->next->next;
+        free(t);
+        removeduplicatesrecursive_Linkedlist(l);
+    }
+    else
+    {
+        removeduplicatesrecursive_Linkedlist(l->next);
+    }
+}
+
+int cmp_links(const void *a, const void *b)
+{
+    node **na = (node **)a;
+    node **nb = (node **)b;
+    return (*na)->data.num - (*nb)->data.num;
+}
+    
+
+Linkedlist  qsort_Linkedlist( Linkedlist l ){
+    if (l == NULL)
+    {
+        return NULL ; 
+    }
+    
+    int s = sizeof_Linkedlist( l ) ; 
+    node * elems[s]  ; 
+    for (int i = 0; i < s; i++)
+    {
+        elems[i] = l;
+        l= l->next;
+    }
+    qsort(elems, s, sizeof(node *), cmp_links); 
+    Linkedlist head = elems[0] ; 
+    for (int i = 0; i < s-1; i++)
+    {
+        elems[i]->next = elems[i+1] ; 
+    }
+    
+    elems[s-1]->next = NULL ; 
+    return head ; 
+    
 }
 
 Linkedlist concat_Linkedlist(Linkedlist l1, Linkedlist l2)
@@ -186,15 +244,26 @@ int main()
     customdata mi = {10};
     // Linkedlist moo = &koo;
     Linkedlist moo = NULL;
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 30; i++)
     {
-        mi.num = abs(i * i + i * 8 + 9) % 100;
+        mi.num = (i/2) % 10;
         append_Linkedlist(&moo, mi);
     }
 
+
+
     moo = recursive_reverse_linkedlistinplace(moo);
-    removeduplicates_Linkedlist(moo);
-    print_Linkedlist(moo);
     printf("\n%d linklist size \n", sizeof_Linkedlist(moo));
+    // printf("\n%d linklist size \n", sizeof_Linkedlist(moo));
+    print_Linkedlist(moo);
+    removeduplicatesrecursive_Linkedlist(moo);
+    printf("\n%d linklist size \n", sizeof_Linkedlist(moo));
+    print_Linkedlist(moo);
+    removeduplicates_Linkedlist(moo) ;
+    printf("\n%d linklist size \n", sizeof_Linkedlist(moo));
+    print_Linkedlist(moo);
+    moo = qsort_Linkedlist(moo) ; 
+    print_Linkedlist(moo);
+
     return 0;
 }

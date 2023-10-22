@@ -5,7 +5,7 @@ TIMELIMIT=1
 echo $1 $2 $3 $4
 
 
-gcc -Wall $1 -o $2
+gcc -Wall $1 -o $2  -lm
 echo "" > /tmp/cproutput2
 echo "Debug: executing with $TIMELIMIT second(s) time limit .."
 timeout $TIMELIMIT $2 < $3  > /tmp/cproutput || echo "SEG fault or TLE $TIMELIMIT second(s) limit" > /tmp/cproutput2

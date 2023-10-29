@@ -28,11 +28,12 @@ struct Account *DELACCOUNTS = NULL; // deleted accounts
 
 void createAccount(enum AccountType type, char *name, float balance)
 {
+    int accountNumber = 100;
     for (Account *A = ACCOUNTS; A != NULL; A = A->next)
     {
         if (A->info.type == type && (strcmp(A->info.name, name) == 0))
         {
-            printf(" Account already exists \n");
+            printf(" \033[1;31mInvalid : \033[0m Account already exists\n");
             return;
         }
     }
@@ -54,6 +55,7 @@ void createAccount(enum AccountType type, char *name, float balance)
         temp->info.balance = balance;
         temp->info.type = type;
         temp->next = NULL;
+        accountNumber = temp->info.accountNumber;
         if (ACCOUNTS == NULL)
             ACCOUNTS = temp;
         else
@@ -78,7 +80,9 @@ void createAccount(enum AccountType type, char *name, float balance)
         strcpy(lastacc->next->info.name, name);
         lastacc->next->info.balance = balance;
         lastacc->next->info.type = type;
+        accountNumber = lastacc->next->info.accountNumber;
     }
+    printf("Created Account \n Account Number : %d \n Name : %s \n Type : %s \n Balance : Rs %8.2f\n", accountNumber, name, type == 0 ? "Savings" : "Current", balance);
 }
 
 void deleteAccount(enum AccountType type, char *name)
@@ -96,7 +100,8 @@ void deleteAccount(enum AccountType type, char *name)
     }
     if (f)
     {
-        printf(" Account doesnt exist \n");
+        printf(" \033[1;31mInvalid : \033[0m Account doesn't exist\n");
+
         return;
     }
     Account *A = ACCOUNTS;
@@ -160,14 +165,16 @@ int sizeof_Linkedlist(Account *l)
     return 1 + sizeof_Linkedlist(l->next);
 }
 
-Account *sort_Linkedlist(Account *l)
+Account *sort_Linkedlist(Account *a)
 {
+    Account *l = a;
     if (l == NULL)
     {
         return NULL;
     }
 
     int s = sizeof_Linkedlist(l);
+    l = a;
     Account *elems[s];
     for (int i = 0; i < s; i++)
     {
@@ -187,11 +194,19 @@ Account *sort_Linkedlist(Account *l)
 
 void sortAccounts()
 {
-    sort_Linkedlist(ACCOUNTS);
-    sort_Linkedlist(DELACCOUNTS);
+    ACCOUNTS = sort_Linkedlist(ACCOUNTS);
+    DELACCOUNTS = sort_Linkedlist(DELACCOUNTS);
 }
 
-
+void printlinklist(Account *l)
+{
+    printf("--\n");
+    while (l != NULL)
+    {
+        printf("%d \n", l->info.accountNumber);
+        l = l->next;
+    }
+}
 
 void display()
 {
@@ -221,22 +236,24 @@ void lowBalanceAccounts()
 {
     if (ACCOUNTS == NULL)
     {
-        printf("No accounts exist right now ! \n");
+        printf(" \033[1;31mInvalid : \033[0m No accounts exist right now ! \n");
         return;
     }
-    int f = 1 ; 
+    int f = 1;
     Account *P = ACCOUNTS;
     printf(" Number Name \t\t\t balance \t \t Type\t \n");
     while (P != NULL)
     {
-        if( P->info.balance < 100 ){
-            printf("Account Number: %d, Name: %s, Balance: %2.2f", P->info.accountNumber , P->info.name , P->info.balance) ; 
-            f = 0 ; 
+        if (P->info.balance < 100)
+        {
+            printf("Account Number: %d, Name: %s, Balance: %2.2f", P->info.accountNumber, P->info.name, P->info.balance);
+            f = 0;
         }
         P = P->next;
     }
-    if ( f) {
-        printf("All accounts have balance >= Rs 100 \n") ; 
+    if (f)
+    {
+        printf("All accounts have balance >= Rs 100 \n");
     }
 }
 
@@ -256,7 +273,7 @@ enum AccountType checkinpacctype()
     }
 }
 
-void transaction(int accountNumber , float amount, int transactiontype)
+void transaction(int accountNumber, float amount, int transactiontype)
 {
     Account *A = ACCOUNTS;
     while (A->info.accountNumber != accountNumber && A != NULL)
@@ -265,7 +282,7 @@ void transaction(int accountNumber , float amount, int transactiontype)
     }
     if (A == NULL)
     {
-        printf("Account doesnt exist \n ");
+        printf(" \033[1;31mInvalid : \033[0m Account doesn't exist\n");
         return;
     }
     if (transactiontype == 1)
@@ -291,9 +308,8 @@ void transaction(int accountNumber , float amount, int transactiontype)
 int main()
 {
 
-    printf("\n------------------------------\n WELCOME TO MY BANKING SYSTEM\n------------------------------\n\n");
+    printf("\n------------------------------\n WELCOME TO BANKING SYSTEM\n------------------------------\n\n");
     printf(" Enter HELP for a list of commands available \n\n");
-    
 
     struct AccountInfo info;
     int transactiontype;
@@ -311,9 +327,8 @@ int main()
             if (info.type == -1)
                 continue;
             scanf("%s %f", info.name, &info.balance);
-            printf("Created Account \n Name : %s \n Balance : %f \n Type : %s\n", info.name, info.balance, info.type == 0 ? "Savings" : "Current");
+
             createAccount(info.type, info.name, info.balance);
-            continue;
         }
         else if (strcmp(inp, "DELETE") == 0)
         {
@@ -322,7 +337,6 @@ int main()
                 continue;
             scanf("%s", info.name);
             deleteAccount(info.type, info.name);
-            continue;
         }
         else if (strcmp(inp, "TRANSACTION") == 0)
         {
@@ -330,26 +344,22 @@ int main()
             scanf("%d %f %d", &info.accountNumber, &amount, &transactiontype);
             if (transactiontype >> 1 != 0)
             {
-                printf("Invalid transaction code, use 0 for withdrawl , 1 for deposit ");
+                printf("\033[1;31mInvalid transaction code\033[0m, use 0 for withdrawl , 1 for deposit ");
                 continue;
             }
             transaction(info.accountNumber, amount, transactiontype);
-            continue;
         }
         else if (strcmp(inp, "DISPLAY") == 0)
         {
             display();
-            continue;
         }
         else if (strcmp(inp, "LOWBALANCE") == 0)
         {
             lowBalanceAccounts();
-            continue;
         }
         else if (strcmp(inp, "HELP") == 0)
         {
             printf("loLL yoU NeEeD hElP \n");
-            return 0;
         }
         else if (strcmp(inp, "EXIT") == 0)
         {
@@ -360,8 +370,11 @@ int main()
         else
         {
 
-            printf("invalid command entered \n ");
+            printf("\033[1;31mInvalid input\033[0m\n");
         }
+
+        printlinklist(ACCOUNTS);
+        printlinklist(DELACCOUNTS);
     }
 
     return 0;

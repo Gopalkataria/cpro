@@ -6,13 +6,13 @@ typedef struct customdata
     int num;
 } customdata;
 
-typedef struct node
+typedef struct Account
 {
     customdata data;
-    struct node *next;
-} node;
+    struct Account *next;
+} Account;
 
-typedef node *Linkedlist;
+typedef Account *Linkedlist;
 
 void print_Linkedlist(Linkedlist l)
 {
@@ -28,8 +28,8 @@ void print_Linkedlist(Linkedlist l)
 void append_Linkedlist(Linkedlist *l2, customdata newdata)
 {
     Linkedlist l = *l2;
-    node *n;
-    n = (node *)malloc(sizeof(node));
+    Account *n;
+    n = (Account *)malloc(sizeof(Account));
     n->data = newdata;
     n->next = NULL;
 
@@ -49,7 +49,7 @@ void append_Linkedlist(Linkedlist *l2, customdata newdata)
 Linkedlist preppend_Linkedlist(Linkedlist l, customdata newdata)
 {
     Linkedlist n;
-    n = (node *)malloc(sizeof(node));
+    n = (Account *)malloc(sizeof(Account));
     n->data = newdata;
     n->next = l;
     return n;
@@ -97,8 +97,8 @@ void removeduplicatesrecursive_Linkedlist(Linkedlist l)
 
 int cmp_links(const void *a, const void *b)
 {
-    node **na = (node **)a;
-    node **nb = (node **)b;
+    Account **na = (Account **)a;
+    Account **nb = (Account **)b;
     return (*na)->data.num - (*nb)->data.num;
 }
     
@@ -110,13 +110,13 @@ Linkedlist  qsort_Linkedlist( Linkedlist l ){
     }
     
     int s = sizeof_Linkedlist( l ) ; 
-    node * elems[s]  ; 
+    Account * elems[s]  ; 
     for (int i = 0; i < s; i++)
     {
         elems[i] = l;
         l= l->next;
     }
-    qsort(elems, s, sizeof(node *), cmp_links); 
+    qsort(elems, s, sizeof(Account *), cmp_links); 
     Linkedlist head = elems[0] ; 
     for (int i = 0; i < s-1; i++)
     {
@@ -189,7 +189,7 @@ Linkedlist new_concat_Linkedlist(Linkedlist l1, Linkedlist l2)
 
     Linkedlist newtail = NULL, head;
 
-    newtail = (node *)malloc(sizeof(node));
+    newtail = (Account *)malloc(sizeof(Account));
     newtail->data = l1->data;
     l1 = l1->next;
     head = newtail;
@@ -211,7 +211,7 @@ Linkedlist new_concat_Linkedlist(Linkedlist l1, Linkedlist l2)
 
 int main()
 {
-    node all[10];
+    Account all[10];
     for (int i = 0; i < 9; i++)
     {
         all[i].data.num = i + 1;
@@ -220,11 +220,11 @@ int main()
     all[9].data.num = 9;
     all[9].next = NULL;
 
-    node k = {{10}, NULL};
+    Account k = {{10}, NULL};
 
     Linkedlist L = &all[0];
 
-    node all2[10];
+    Account all2[10];
     for (int i = 0; i < 9; i++)
     {
         all2[i].data.num = 10 * (i + 1);
@@ -240,7 +240,7 @@ int main()
 
     // print_Linkedlist(L);
     reverse_Linkedlistinplace(&L);
-    node koo = {{96}, NULL};
+    Account koo = {{96}, NULL};
     customdata mi = {10};
     // Linkedlist moo = &koo;
     Linkedlist moo = NULL;

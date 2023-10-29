@@ -23,7 +23,10 @@
 			"options": {
 				"cwd": "${fileDirname}"
 			},
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"detail": "Use filename.test and filename.test.out, compile and Run code, "
 		},
 		{
@@ -46,13 +49,11 @@
 				"/home/enoria/cpro/output.test"
 			],
 			"options": {
-				"cwd": "${fileDirname}",
+				"cwd": "${fileDirname}"
 			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"detail": "Use input.test and output.test, compile and run code"
+			"group": "build",
+			"detail": "Use input.test and output.test, compile and run code",
+			"problemMatcher": []
 		},
 		{
 			"label": "Timed Build and Run",

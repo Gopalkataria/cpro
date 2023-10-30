@@ -13,7 +13,7 @@ typedef struct Color
     struct Color *next; // Pointer to the next color
 } Color;
 
-typedef struct Color *ColorList; 
+typedef struct Color *ColorList;
 
 // Function to append a new color to the end of the linked list
 void appendColor(ColorList *C, int index)
@@ -35,7 +35,7 @@ void appendColor(ColorList *C, int index)
             temp = temp->next;
         }
 
-        temp->next = newcolor; 
+        temp->next = newcolor;
     }
 }
 
@@ -58,7 +58,10 @@ ColorList removeDuplicates(ColorList C)
 
     if (temp->index == temp->next->index)
     {
+    again:
         temp->next = removeDuplicates(temp->next->next); // Remove duplicate, keep the next distinct color
+        if (temp->next != NULL && temp->index == temp->next->index)
+            goto again;
     }
     else
     {

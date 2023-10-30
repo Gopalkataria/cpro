@@ -44,6 +44,16 @@ The program supports the following commands:
 ## Complex Number Calculator
 
 This is a C program that allows you to perform various operations with complex numbers. You can use this program to add, subtract, compute the dot product, and calculate the cosine similarity of complex vectors.
+
+### Compiling 
+while compiling make sure to include the -lm flag to properly link the math.h header file 
+```bash
+# compiling code 
+gcc q2.c -lm -o q2.out
+# executing code 
+./q2.out 
+```
+
 ### Code Structure
 
 The code is organized into several functions and a `main` function. It defines a `complex` structure to represent complex numbers. The functions include:

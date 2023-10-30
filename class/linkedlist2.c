@@ -72,6 +72,18 @@ LinkedList reverselinkedlist( LinkedList l ){
     return prev ; 
 }
 
+Person best( LinkedList l , int (*cmp)(Person , Person) ){
+    Person best = l->data ; 
+    while ( l != NULL ){
+        if ( cmp(l->data , best) > 0 ){
+            best = l->data ; 
+        }
+        l = l->next ; 
+    }
+    return best ; 
+}
+
+
 int main()
 {
 

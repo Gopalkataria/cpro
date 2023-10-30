@@ -2,13 +2,40 @@
 #include <string.h>
 #include <stdlib.h>
 
-enum AccountType
+// -----------------------------
+// Banking System Code
+// -----------------------------
+
+char HELP[] = "CREATE <AccountType> <Name> <Amount>\n"
+              "Create a new account, AccountType could be SAVINGS or CURRENT\n"
+              "\n"
+              "DELETE <AccountType> <Name>\n"
+              "Delete an existing account, AccountType could be SAVINGS or CURRENT\n"
+              "\n"
+              "TRANSACTION <AccountNumber> <Amount> <Code> \n"
+              "Perform a transaction of a given amount, Code 0 for withdrawl and 1 for deposit \n"
+              "\n"
+              "LOWBALANCE \n"
+              "Display all the accounts with balance < 100  \n"
+              "\n"
+              "DISPLAY \n"
+              "Display all info about all the accounts \n"
+              "\n"
+              "HELP \n"
+              "List all the available commands \n"
+              "\n"
+              "EXIT\n"
+              "Exit the program \n";
+
+// Declaring all the structs and enums required for ( According the question instructions)
+
+enum AccountType // Account type enum according to question
 {
     savings,
     current
 };
 
-struct AccountInfo
+struct AccountInfo // Account info struct according to question
 {
     int accountNumber;
     float balance;
@@ -16,17 +43,17 @@ struct AccountInfo
     char name[50];
 };
 
-struct Account
+struct Account // Node of linked list of accounts
 {
     struct AccountInfo info;
     struct Account *next;
 };
 
 typedef struct Account Account;
-struct Account *ACCOUNTS = NULL;
+struct Account *ACCOUNTS = NULL;    // global linked list of accounts
 struct Account *DELACCOUNTS = NULL; // deleted accounts
 
-void createAccount(enum AccountType type, char *name, float balance)
+void createAccount(enum AccountType type, char *name, float balance) // create account according to question
 {
     int accountNumber = 100;
     for (Account *A = ACCOUNTS; A != NULL; A = A->next)
@@ -38,7 +65,7 @@ void createAccount(enum AccountType type, char *name, float balance)
         }
     }
 
-    if (ACCOUNTS == NULL && DELACCOUNTS == NULL) // initial state ( making banks first account )
+    if (ACCOUNTS == NULL && DELACCOUNTS == NULL) // initial state ( making bank's first account )
     {
         ACCOUNTS = (Account *)malloc(sizeof(Account));
         ACCOUNTS->info.accountNumber = 100;
@@ -47,7 +74,7 @@ void createAccount(enum AccountType type, char *name, float balance)
         ACCOUNTS->info.type = type;
         ACCOUNTS->next = NULL;
     }
-    else if (DELACCOUNTS != NULL) // there is a deleted account number which we can reuse
+    else if (DELACCOUNTS != NULL) // reusing deleted account number
     {
         Account *temp = DELACCOUNTS;
         DELACCOUNTS = DELACCOUNTS->next;
@@ -68,7 +95,7 @@ void createAccount(enum AccountType type, char *name, float balance)
             lastacc->next = temp;
         }
     }
-    else
+    else // making new account ( not reusing deleted account number)
     {
         Account *lastacc = ACCOUNTS;
         while (lastacc->next != NULL)
@@ -82,10 +109,10 @@ void createAccount(enum AccountType type, char *name, float balance)
         lastacc->next->info.type = type;
         accountNumber = lastacc->next->info.accountNumber;
     }
-    printf("Created Account \n Account Number : %d \n Name : %s \n Type : %s \n Balance : Rs %8.2f\n", accountNumber, name, type == 0 ? "Savings" : "Current", balance);
+    printf("Created Account \n Account Number  : %d \n Name   \t : %s \n Type   \t : %s \n Balance   \t : Rs %.2f\n", accountNumber, name, type == 0 ? "Savings" : "Current", balance);
 }
 
-void deleteAccount(enum AccountType type, char *name)
+void deleteAccount(enum AccountType type, char *name) // delete account according to question
 {
 
     int f = 1, delaccnum;
@@ -94,7 +121,7 @@ void deleteAccount(enum AccountType type, char *name)
         if (A->info.type == type && (strcmp(A->info.name, name) == 0))
         {
             f = 0;
-            delaccnum = A->info.accountNumber;
+            delaccnum = A->info.accountNumber; // finding account number of account to be deleted
             break;
         }
     }
@@ -105,7 +132,7 @@ void deleteAccount(enum AccountType type, char *name)
         return;
     }
     Account *A = ACCOUNTS;
-    if (A->info.accountNumber == delaccnum)
+    if (A->info.accountNumber == delaccnum) // deleting first account
     {
 
         ACCOUNTS = ACCOUNTS->next;
@@ -126,7 +153,7 @@ void deleteAccount(enum AccountType type, char *name)
     }
     else
     {
-        while (A->next->info.accountNumber != delaccnum)
+        while (A->next->info.accountNumber != delaccnum) // deleting account which isnt the first account
         {
             A = A->next;
         }
@@ -151,21 +178,21 @@ void deleteAccount(enum AccountType type, char *name)
     return;
 }
 
-int cmp_links(const void *a, const void *b)
+int cmp_links(const void *a, const void *b) // comparator function for sorting linked lists function
 {
     Account **na = (Account **)a;
     Account **nb = (Account **)b;
     return (*na)->info.accountNumber - (*nb)->info.accountNumber;
 }
 
-int sizeof_Linkedlist(Account *l)
+int sizeof_Linkedlist(Account *l) // size of linked list function for sorting function
 {
     if (l == NULL)
         return 0;
     return 1 + sizeof_Linkedlist(l->next);
 }
 
-Account *sort_Linkedlist(Account *a)
+Account *sort_Linkedlist(Account *a) // sorting account linkedlist list
 {
     Account *l = a;
     if (l == NULL)
@@ -181,7 +208,7 @@ Account *sort_Linkedlist(Account *a)
         elems[i] = l;
         l = l->next;
     }
-    qsort(elems, s, sizeof(Account *), cmp_links);
+    qsort(elems, s, sizeof(Account *), cmp_links); // using q sort for speeed ;
     Account *head = elems[0];
     for (int i = 0; i < s - 1; i++)
     {
@@ -194,11 +221,12 @@ Account *sort_Linkedlist(Account *a)
 
 void sortAccounts()
 {
+    // sorting both ACCOUNTS and DELEACCOUNTS because the code logic depends on sorted linked lists
     ACCOUNTS = sort_Linkedlist(ACCOUNTS);
     DELACCOUNTS = sort_Linkedlist(DELACCOUNTS);
 }
 
-void printlinklist(Account *l)
+void printlinklist(Account *l) // defined for debugging purposes
 {
     printf("--\n");
     while (l != NULL)
@@ -208,20 +236,19 @@ void printlinklist(Account *l)
     }
 }
 
-void display()
+void display() // display all accounts according to question
 {
     if (ACCOUNTS == NULL)
     {
         printf("No accounts exist right now\n");
         return;
     }
-    printf("-------------------------------------------------\n");
+    printf("----------------------------------------------------------------------------------\n");
     Account *P = ACCOUNTS;
     printf("Account Number\t       Account Type \t     Name \t\t\t Balance\t \n");
     while (P != NULL)
     {
 
-        // printf(" %d    %s \t\t %4.2f \t\t %s \t \n", P->info.accountNumber, P->info.name, P->info.balance, P->info.type == savings ? "Savings" : "Current");
         printf(" %-20d  %-20s  %-25s  %8.2f\n",
                P->info.accountNumber,
                (P->info.type == savings) ? "Savings" : "Current",
@@ -230,9 +257,9 @@ void display()
 
         P = P->next;
     }
-    printf("-------------------------------------------------\n\n");
+    printf("----------------------------------------------------------------------------------\n");
 }
-void lowBalanceAccounts()
+void lowBalanceAccounts() // display all low balance accounts accordin to question
 {
     if (ACCOUNTS == NULL)
     {
@@ -241,23 +268,37 @@ void lowBalanceAccounts()
     }
     int f = 1;
     Account *P = ACCOUNTS;
-    printf(" Number Name \t\t\t balance \t \t Type\t \n");
     while (P != NULL)
     {
         if (P->info.balance < 100)
         {
-            printf("Account Number: %d, Name: %s, Balance: %2.2f", P->info.accountNumber, P->info.name, P->info.balance);
+
             f = 0;
+            break;
         }
         P = P->next;
     }
+    P = ACCOUNTS;
     if (f)
     {
         printf("All accounts have balance >= Rs 100 \n");
     }
+    else
+    {
+        printf("Low balance accounts are : \n");
+        while (P != NULL)
+        {
+            if (P->info.balance < 100)
+            {
+                printf("Account Number: %d, Name: %s, Balance: %2.2f", P->info.accountNumber, P->info.name, P->info.balance);
+                f = 0;
+            }
+            P = P->next;
+        }
+    }
 }
 
-enum AccountType checkinpacctype()
+enum AccountType checkinpacctype() // check input account type function for use while taking inputs for CREATE and DELETE commands to avoid repeating code
 {
     char acctype[100];
     scanf("%s", acctype);
@@ -273,10 +314,11 @@ enum AccountType checkinpacctype()
     }
 }
 
-void transaction(int accountNumber, float amount, int transactiontype)
+void transaction(int accountNumber, float amount, int transactiontype) // transaction function according to question ( transaction type withdrawl = 0 , deposit = 1 )
 {
     Account *A = ACCOUNTS;
-    while (A->info.accountNumber != accountNumber && A != NULL)
+    // printf("%d %d %d\n", accountNumber, amount, transactiontype); // DEBUG
+    while (A != NULL && A->info.accountNumber != accountNumber)
     {
         A = A->next;
     }
@@ -301,7 +343,7 @@ void transaction(int accountNumber, float amount, int transactiontype)
             A->info.balance -= abs(amount);
         }
     }
-    printf("Final Balance %f \n ", A->info.balance);
+    printf("Final Balance %8.2f \n ", A->info.balance);
     return;
 }
 
@@ -315,9 +357,13 @@ int main()
     int transactiontype;
     float amount;
     char inp[100];
+
+    // ----------------------------------------------------------
+    // Main while loop for taking inputs and evaluating them
+    // ----------------------------------------------------------
     while (1)
     {
-        sortAccounts();   // sort all linked linsts in case user wants to print them
+        sortAccounts();   // sort all linked linsts becuase code logic depends on it
         printf("\n-> ");  // DEBUG
         scanf("%s", inp); // scan only the first word of the command
         if (strcmp(inp, "CREATE") == 0)
@@ -344,7 +390,7 @@ int main()
             scanf("%d %f %d", &info.accountNumber, &amount, &transactiontype);
             if (transactiontype >> 1 != 0)
             {
-                printf("\033[1;31mInvalid transaction code\033[0m, use 0 for withdrawl , 1 for deposit ");
+                printf("\033[1;31mInvalid transaction code: \033[0m use 0 for withdrawl , 1 for deposit ");
                 continue;
             }
             transaction(info.accountNumber, amount, transactiontype);
@@ -359,7 +405,7 @@ int main()
         }
         else if (strcmp(inp, "HELP") == 0)
         {
-            printf("loLL yoU NeEeD hElP \n");
+            printf("%s", HELP);
         }
         else if (strcmp(inp, "EXIT") == 0)
         {
@@ -372,9 +418,6 @@ int main()
 
             printf("\033[1;31mInvalid input\033[0m\n");
         }
-
-        printlinklist(ACCOUNTS);
-        printlinklist(DELACCOUNTS);
     }
 
     return 0;

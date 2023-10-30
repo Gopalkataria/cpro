@@ -65,7 +65,7 @@ void printComplex(complex c)
     printf("Result : ");
     for (int i = 0; i < c.dimension; i++)
     {
-        printf("%8.2f ", c.coordinates[i]);
+        printf("%.2f ", c.coordinates[i]);
     }
     printf("\n");
 }
@@ -120,7 +120,7 @@ int main()
             scanf("%d", &n);
             inputComplex(&c1, n);
             inputComplex(&c2, n);
-            printf("Result : %8.2f \n", cosineSimilarity(c1, c2));
+            printf("Result : %.2f \n", cosineSimilarity(c1, c2));
         }
         else if (strcmp(input, "-1") == 0)
         {

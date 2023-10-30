@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define debug printf("Here\n");
-
+// definin a struct to store the complex number
+// a n dimentional complex number is basically a vector in n dimensional space
 typedef struct complex
 {
     int dimension;
@@ -13,6 +13,7 @@ typedef struct complex
 
 complex add(complex c1, complex c2)
 {
+    // inititalize a new complex number and store the sum in it 
     complex ans;
     ans.dimension = c1.dimension;
     ans.coordinates = (float *)malloc(c1.dimension * sizeof(float));
@@ -24,6 +25,7 @@ complex add(complex c1, complex c2)
 }
 complex sub(complex c1, complex c2)
 {
+    // initialize a new complex number and store the difference in it
     complex ans;
     ans.dimension = c1.dimension;
     ans.coordinates = (float *)malloc(c1.dimension * sizeof(float));
@@ -36,6 +38,7 @@ complex sub(complex c1, complex c2)
 
 float dot(complex c1, complex c2)
 {
+    // calculate the dot product of two complex numbers
     float ans = 0;
 
     for (int i = 0; i < c1.dimension; i++)
@@ -47,6 +50,7 @@ float dot(complex c1, complex c2)
 
 float mod(complex c1)
 {
+    // calculate the modulus ( aka magnitude ) of a complex number
     float ans = 0;
     for (int i = 0; i < c1.dimension; i++)
     {
@@ -57,11 +61,14 @@ float mod(complex c1)
 
 float cosineSimilarity(complex c1, complex c2)
 {
+    // calculate the cosine similarity of two complex numbers
+    // basically its the cos of angles between the two complex vectors
     return dot(c1, c2) / (mod(c1) * mod(c2));
 }
 
 void printComplex(complex c)
 {
+    // print the complex number in the format (a1,a2,a3,....,an)
     printf("Result : ");
     for (int i = 0; i < c.dimension; i++)
     {
@@ -71,6 +78,7 @@ void printComplex(complex c)
 }
 void inputComplex(complex *c, int dimensions)
 {
+    // initialize a complex number with the given dimensions and input the coordinates
     c->dimension = dimensions;
     c->coordinates = (float *)malloc(dimensions * sizeof(float));
     for (int i = 0; i < c->dimension; i++)
@@ -81,6 +89,7 @@ void inputComplex(complex *c, int dimensions)
 
 void freeComplexCoordinates(complex* c)
 {
+    // since we are using malloc for the coordinates we need to free it
     free(c->coordinates);
 }
 
@@ -93,6 +102,8 @@ int main()
     printf("Complex Number Calculator\nEnter Commands \n");
     while (1)
     {
+        // code works assuming that the user will input the complex number and commands in correct format
+        // error handling is bare minimum and only for the commands
         scanf("%s", input);
         if (strcmp(input, "ADD") == 0)
         {
@@ -126,7 +137,12 @@ int main()
         {
             printf("Exiting \n");
             return 0;
+        } else {
+            printf("Invalid Command \n");
+            continue; // to avoid the below code which frees memory for the coordinates
         }
+
+        // freeing the memory allocated for the coordinates to avoid memory leaks
         freeComplexCoordinates(&c1);
         freeComplexCoordinates(&c2);
     }

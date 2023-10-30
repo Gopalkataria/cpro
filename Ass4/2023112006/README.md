@@ -34,6 +34,7 @@ The program supports the following commands:
 - Account numbers are generated incrementally, starting from 100.
 - Account names are limited to 50 characters and **Account holder names cannot contain spaces**.
 - The program uses a linked list data structure to manage accounts.
+- The program assumes that minimum balance in a account is Rs 100, and account is low balance only when balance < 100 ( note strict inequality sign )
 - The initial state includes no accounts, and the first created account will have number 100.
 - There is no persistent data storage; all accounts and data are lost when the program exits.
 - The program assumes that input values are correctly formatted and within expected ranges. Error handling for invalid inputs is minimal.

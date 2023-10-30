@@ -6,7 +6,7 @@
 // Banking System Code
 // -----------------------------
 
-char HELP[] = "CREATE <AccountType> <Name> <Amount>\n"
+char HELP[] = "\nCREATE <AccountType> <Name> <Amount>\n"
               "Create a new account, AccountType could be SAVINGS or CURRENT\n"
               "\n"
               "DELETE <AccountType> <Name>\n"
@@ -60,7 +60,7 @@ void createAccount(enum AccountType type, char *name, float balance) // create a
     {
         if (A->accountInfo.accountType == type && (strcmp(A->accountInfo.holderName, name) == 0))
         {
-            printf(" \033[1;31mInvalid : \033[0m Account already exists\n");
+            printf("  Invalid :   Account already exists\n");
             return;
         }
     }
@@ -131,7 +131,7 @@ void deleteAccount(enum AccountType type, char *name) // delete account accordin
     }
     if (f)
     {
-        printf(" \033[1;31mInvalid : \033[0m Account doesn't exist\n");
+        printf("  Invalid :   Account doesn't exist\n");
 
         return;
     }
@@ -140,20 +140,20 @@ void deleteAccount(enum AccountType type, char *name) // delete account accordin
     {
 
         ACCOUNTS = ACCOUNTS->nextAccount;
-        Account *P = DELACCOUNTS;
+        Account *D = DELACCOUNTS;
         A->nextAccount = NULL;
         // add deleted account to a linked list of deleted accounts DELACCOUNTS
-        if (P == NULL)
+        if (D == NULL)
         {
             DELACCOUNTS = A;
         }
         else
         {
-            while (P->nextAccount != NULL)
+            while (D->nextAccount != NULL)
             {
-                P = P->nextAccount;
+                D = D->nextAccount;
             }
-            P->nextAccount = A;
+            D->nextAccount = A;
         }
     }
     else
@@ -165,20 +165,20 @@ void deleteAccount(enum AccountType type, char *name) // delete account accordin
         }
         Account *temp = A->nextAccount;
         A->nextAccount = A->nextAccount->nextAccount;
-        Account *P = DELACCOUNTS;
+        Account *D = DELACCOUNTS;
         temp->nextAccount = NULL;
         // add deleted account to a linked list of deleted accounts DELACCOUNTS
-        if (P == NULL)
+        if (D == NULL)
         {
             DELACCOUNTS = temp;
         }
         else
         {
-            while (P->nextAccount != NULL)
+            while (D->nextAccount != NULL)
             {
-                P = P->nextAccount;
+                D = D->nextAccount;
             }
-            P->nextAccount = temp;
+            D->nextAccount = temp;
         }
     }
     printf("Account Deleted Successfully\n");
@@ -189,6 +189,7 @@ int cmp_links(const void *a, const void *b) // comparator function for sorting l
 {
     Account **na = (Account **)a;
     Account **nb = (Account **)b;
+    // comparison on basis of account numbers
     return (*na)->accountInfo.accountNumber - (*nb)->accountInfo.accountNumber;
 }
 
@@ -199,16 +200,15 @@ int sizeof_Linkedlist(Account *l) // size of linked list function for sorting fu
     return 1 + sizeof_Linkedlist(l->nextAccount);
 }
 
-Account *sort_Linkedlist(Account *a) // sorting account linkedlist list
+Account *sort_Linkedlist(Account *L) // sorting account linkedlist list
 {
-    Account *l = a;
+    Account *l = L;
     if (l == NULL)
     {
         return NULL;
     }
 
     int s = sizeof_Linkedlist(l);
-    l = a;
     Account *elems[s]; // well store all the accounts in an array and sort them
     for (int i = 0; i < s; i++)
     {
@@ -277,7 +277,7 @@ void lowBalanceAccounts() // display all low balance accounts accordin to questi
 {
     if (ACCOUNTS == NULL)
     {
-        printf(" \033[1;31mInvalid : \033[0m No accounts exist right now ! \n");
+        printf("  Invalid :   No accounts exist right now ! \n");
         return;
     }
     int f = 1;
@@ -338,7 +338,7 @@ void transaction(int accountNumber, float amount, int transactiontype) // transa
     }
     if (A == NULL)
     {
-        printf(" \033[1;31mInvalid : \033[0m Account doesn't exist\n");
+        printf("  Invalid :   Account doesn't exist\n");
         return;
     }
     if (transactiontype == 1)
@@ -367,9 +367,9 @@ int main()
     printf("\n------------------------------\n WELCOME TO BANKING SYSTEM\n------------------------------\n\n");
     printf(" Enter HELP for a list of commands available \n\n");
 
-    struct AccountInfo info;
-    int transactiontype;
-    float amount;
+    char holderName[50] ; 
+    int accountNumber , transactiontype , accountType ;
+    float amount , accountBalance;
     char inp[100];
 
     // ----------------------------------------------------------
@@ -382,32 +382,32 @@ int main()
         scanf("%s", inp); // scan only the first word of the command
         if (strcmp(inp, "CREATE") == 0)
         {
-            info.accountType = checkinpacctype();
+            accountType = checkinpacctype();
 
-            if (info.accountType == -1)
+            if (accountType == -1)
                 continue;
-            scanf("%s %f", info.holderName, &info.accountBalance);
+            scanf("%s %f", holderName, &accountBalance);
 
-            createAccount(info.accountType, info.holderName, info.accountBalance);
+            createAccount(accountType, holderName, accountBalance);
         }
         else if (strcmp(inp, "DELETE") == 0)
         {
-            info.accountType = checkinpacctype();
-            if (info.accountType == -1)
+            accountType = checkinpacctype();
+            if (accountType == -1)
                 continue;
-            scanf("%s", info.holderName);
-            deleteAccount(info.accountType, info.holderName);
+            scanf("%s", holderName);
+            deleteAccount(accountType, holderName);
         }
         else if (strcmp(inp, "TRANSACTION") == 0)
         {
 
-            scanf("%d %f %d", &info.accountNumber, &amount, &transactiontype);
+            scanf("%d %f %d", &accountNumber, &amount, &transactiontype);
             if (transactiontype >> 1 != 0)
             {
-                printf("\033[1;31mInvalid transaction code: \033[0m use 0 for withdrawl , 1 for deposit ");
+                printf(" Invalid transaction code:   use 0 for withdrawl , 1 for deposit ");
                 continue;
             }
-            transaction(info.accountNumber, amount, transactiontype);
+            transaction(accountNumber, amount, transactiontype);
         }
         else if (strcmp(inp, "DISPLAY") == 0)
         {
@@ -429,8 +429,7 @@ int main()
 
         else
         {
-
-            printf("\033[1;31mInvalid input\033[0m\n");
+            printf(" Invalid input \n");
         }
     }
 

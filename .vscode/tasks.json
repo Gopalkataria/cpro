@@ -23,10 +23,7 @@
 			"options": {
 				"cwd": "${fileDirname}"
 			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
+			"group": "build",
 			"detail": "Use filename.test and filename.test.out, compile and Run code, "
 		},
 		{
@@ -51,7 +48,10 @@
 			"options": {
 				"cwd": "${fileDirname}"
 			},
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"detail": "Use input.test and output.test, compile and run code",
 			"problemMatcher": []
 		},

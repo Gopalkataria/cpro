@@ -3,6 +3,10 @@
 #include <string.h>
 #include <stdlib.h>
 
+// -----------------------------
+// Complex Number Calculator 
+// -----------------------------
+
 // definin a struct to store the complex number
 // a n dimentional complex number is basically a vector in n dimensional space
 typedef struct complex
@@ -102,6 +106,11 @@ int main()
     printf("Complex Number Calculator\nEnter Commands \n");
     while (1)
     {
+
+        // ----------------------------------------------------------
+        // Main while loop for taking inputs and evaluating them
+        // ----------------------------------------------------------
+        
         // code works assuming that the user will input the complex number and commands in correct format
         // error handling is bare minimum and only for the commands
         scanf("%s", input);

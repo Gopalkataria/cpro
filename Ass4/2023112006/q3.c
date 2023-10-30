@@ -2,6 +2,10 @@
 #include <math.h>
 #include <stdlib.h>
 
+// -----------------------------
+//    Color List Code
+// -----------------------------
+
 // Define a structure for Color and an alias ColorList for pointer to Color
 typedef struct Color
 {

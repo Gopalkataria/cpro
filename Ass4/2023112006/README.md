@@ -6,7 +6,7 @@
 - [Complex Number Calculator](#complex-number-calculator)
 - [Color List Operations](#color-list-operations)
 
-## Banking System
+# Banking System
 
 This is a C program for a simple banking system that allows you to create and manage accounts, perform transactions, and view account information.
 
@@ -22,10 +22,6 @@ This is a C program for a simple banking system that allows you to create and ma
 
 1. **Enum AccountType**: This enumeration defines two account types, 'SAVINGS' and 'CURRENT.'
 
-Certainly, here's the explanation of the two data structures in Markdown format:
-
-markdown
-Copy code
 2. **struct AccountInfo**:
    - This structure is used to represent the essential information related to a bank account.
    - The structure includes the following fields:
@@ -66,7 +62,7 @@ There are some more helper functions defined to avoid repetitive code like **che
 
 ### Main Function
 
-The `main` function sets up the banking system and enters a loop to continuously accept user commands. The available commands are:
+The `main` function sets up the banking system and enters a loop to continuously accept user commands. The loop runs infinitely taking commands from user and running them, until an `EXIT` command is entered
 
 
 ### Commands
@@ -93,7 +89,11 @@ The program supports the following commands:
 - The transaction amount should be specified as an absolute value, and the program does not consider overdraft limits or negative account balances.
 - The program does not support multiple users with same names and same account types
 
-## Complex Number Calculator
+<br/>
+
+<br/>
+
+# Complex Number Calculator
 
 This is a C program that allows you to perform various operations with complex numbers. You can use this program to add, subtract, compute the dot product, and calculate the cosine similarity of complex vectors.
 
@@ -148,7 +148,7 @@ The code defines several functions for performing operations on complex numbers:
 
 ### Main Function
 
-The `main` function sets up the banking system and enters a loop to continuously accept user commands. The available commands are:
+The `main` function  enters a loop to continuously accept user commands. The loop runs infinitely taking commands from user and running them, until an `EXIT` command is entered
 
 ### Commands
 
@@ -167,7 +167,7 @@ The program supports the following commands:
 
 - The program doesn't handle invalid inputs gracefully. Ensure that inputs are correctly formatted, and the dimensions match when performing operations.
 
-## Color List Operations
+# Color List Operations
 
 This C program is designed to perform operations on a linked list of colors. It allows you to create a list of colors, remove duplicate colors, and print the modified linked list.
 

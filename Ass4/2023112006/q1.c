@@ -156,7 +156,7 @@ void lowBalanceAccounts() // display all low balance accounts accordin to questi
         return;
     }
     int f = 1;
-    Account *Temp = ACCOUNTS; // making a temporary pointer to ACCOUNTS, since we do not wish to change ACCOUNTS ( its a global variable )
+    Account *Temp = ACCOUNTS; 
     while (Temp != NULL)
     {
         if (Temp->accountInfo.accountBalance < 100)

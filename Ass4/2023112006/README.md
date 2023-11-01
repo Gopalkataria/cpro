@@ -22,10 +22,6 @@ This is a C program for a simple banking system that allows you to create and ma
 
 1. **Enum AccountType**: This enumeration defines two account types, 'SAVINGS' and 'CURRENT.'
 
-Certainly, here's the explanation of the two data structures in Markdown format:
-
-markdown
-Copy code
 2. **struct AccountInfo**:
    - This structure is used to represent the essential information related to a bank account.
    - The structure includes the following fields:

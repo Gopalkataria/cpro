@@ -40,11 +40,9 @@ This is a C program for a simple banking system that allows you to create and ma
 
 4. **ACCOUNTS**: A global linked list of accounts to store the active accounts.
 
-5. **DELACCOUNTS**: A global linked list to store deleted accounts for potential reusage.
-
 ### Functions
 
-1. **createAccount(enum AccountType type, char *name, float balance)**: Creates a new account based on the given account type, name, and initial balance. It checks for duplicate accounts and reuses account numbers of delted accounts if possible.
+1. **createAccount(enum AccountType type, char *name, float balance)**: Creates a new account based on the given account type, name, and initial balance. It checks for duplicate accounts and assigns an appropriate account number. 
 
 2. **deleteAccount(enum AccountType type, char *name)**: Deletes an existing account by its account type and name. The deleted account number can be reused later.
 
@@ -56,9 +54,7 @@ This is a C program for a simple banking system that allows you to create and ma
 
 6. **checkinpacctype**: Checks and validates the input account type.
 
-7. **sortAccounts**: Sorts both `ACCOUNTS` and `DELACCOUNTS` linked lists, ensuring that account numbers are allocated correctly.
 
-There are some more helper functions defined to avoid repetitive code like **checkinpacctype**: Checks and validates the input account type, **sortAccounts**: Sorts both `ACCOUNTS` and `DELACCOUNTS` linked lists, ensuring that account numbers are allocated correctly , **sort_Linkedlist**: Sorts the linked list of accounts based on account numbers.
 
 ### Main Function
 

@@ -43,7 +43,7 @@ void createAccount(enum AccountType type, char *name, float balance) // create a
             return;
         }
 
-    if (ACCOUNTS == NULL) // initial state ( making bank's first account )
+    if (ACCOUNTS == NULL) // initial state 
     {
         // make a new ( first ) account in ACCOUNTS
         ACCOUNTS = (Account *)malloc(sizeof(Account));

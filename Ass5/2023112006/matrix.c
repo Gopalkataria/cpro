@@ -75,10 +75,30 @@ long long int determinant(Matrix *M)
     }
     else
     {
-        Matrix m;
-        m.num_rows = M->num_rows - 1;
-        m.num_cols = M->num_cols - 1;
-        // TODO recurse 
+        long long int ans = 0, k = -1;
+        for (int i = 0; i < M->num_rows; i++)
+        {
+            Matrix *m = create_matrix(M->num_rows - 1, M->num_cols - 1);
+            int p = 0;
+            for (int j = 0; j < M->num_rows; j++)
+            {
+                if (j == i)
+                    continue;
+                else
+                {
+                    for (int l = 1; l < M->num_cols; l++)
+                    {
+                        m->data[p][l - 1] = M->data[j][l];
+                    }
+                    p++;
+                }
+            }
+            printf("\n") ; 
+            print_matrix(m) ; 
+            ans += M->data[i][0] * (k *= -1) * determinant(m);
+            destroy_matrix(m);
+        }
+        return ans ;
     }
 }
 // DO NOT MODIFY THE OUTPUT FORMAT of this function. Will be used for grading

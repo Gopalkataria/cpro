@@ -5,7 +5,7 @@
 int main()
 {
     
-    Matrix* m = create_matrix(3,3);
+    Matrix* m = create_matrix(2,2);
     for (int i = 0; i < m->num_rows; i++)
     {
         for (int j = 0; j < m->num_cols; j++)

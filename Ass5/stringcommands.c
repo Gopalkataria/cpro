@@ -2,14 +2,19 @@
 #include <string.h>
 #include <stdlib.h>
 
-
 int main()
 {
 
-    char inp[1000000], c;
-    scanf("%s", inp);
+    char *inp = (char *)malloc(sizeof(char) * 1000000), c;
+    int start = 500000, end;
+    scanf("%s", &inp[start]);
     int nquery, q, len;
-    len = strlen(inp);
+    len = strlen(&inp[start]);
+    // printf("%d", len);
+    end = start + len;
+    int rev = 0;
+
+    // printf("%s\n", &inp[start]);
     scanf("%d", &nquery);
 
     for (int i = 0; i < nquery; i++)
@@ -17,35 +22,58 @@ int main()
         scanf("%d", &q);
         if (q == 1)
         {
-            // reverse(inp, len);
-            char temp;
-            for (int i = 0; i < len / 2; i++)
-            {
-                temp = inp[i];
-                inp[i] = inp[len - i - 1];
-                inp[len - i - 1] = temp;
-            }
+            rev = rev ^ 1;
+            // printf("-  %d\n" , rev) ; 
+            int temp;
+            temp = start;
+            start = end;
+            end = temp;
         }
         else
         {
             scanf("%d %c", &q, &c);
             if (q == 1)
             {
-                char new[len + 1];
-                strcpy(new, inp);
-                strcpy(inp + 1, new);
-                inp[0] = c;
-                len++;
+                if (rev)
+                {
+                    inp[start] = c;
+                    start++;
+                }
+                else
+                {
+                    start--;
+                    inp[start] = c;
+                }
             }
             else
             {
-                inp[len] = c;
-                inp[len + 1] = '\0';
-                len++;
+                if (rev)
+                {
+                    end--;
+                    inp[end] = c;
+                }
+                else
+                {
+                    inp[end] = c;
+                    end++;
+                }
             }
         }
     }
-    printf("%s", inp);
 
+    if (!(rev))
+    {
+        for (int i = start; i < end; i++)
+        {
+            printf("%c", inp[i]);
+        }
+    }
+    else
+    {
+        for (int i = start - 1; i >= end; i--)
+        {
+            printf("%c", inp[i]);
+        }
+    }
     return 0;
 }

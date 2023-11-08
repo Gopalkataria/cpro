@@ -1,84 +1,104 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Custom Build and Run",
-			"type": "process",
-			"command": "/home/enoria/cpro/build.sh",
-			"isBackground": true,
-			"presentation": {
-				"echo": true,
-				"reveal": "silent",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": false,
-				"clear": false
-			},
-			"args": [
-				"${file}",
-				"${fileDirname}/${fileBasenameNoExtension}.out",
-				"${fileDirname}/${fileBasenameNoExtension}.test",
-				"${fileDirname}/${fileBasenameNoExtension}.test.out"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"group": "build",
-			"detail": "Use filename.test and filename.test.out, compile and Run code, "
-		},
-		{
-			"label": "Common Build and Run",
-			"type": "process",
-			"command": "/home/enoria/cpro/build.sh",
-			"isBackground": true,
-			"presentation": {
-				"echo": true,
-				"reveal": "silent",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": true,
-				"clear": true
-			},
-			"args": [
-				"${file}",
-				"${fileDirname}/${fileBasenameNoExtension}.out",
-				"/home/enoria/cpro/input.test",
-				"/home/enoria/cpro/output.test"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"detail": "Use input.test and output.test, compile and run code",
-			"problemMatcher": []
-		},
-		{
-			"label": "Timed Build and Run",
-			"type": "process",
-			"command": "/home/enoria/cpro/buildtimed.sh",
-			"isBackground": true,
-			"presentation": {
-				"echo": true,
-				"reveal": "silent",
-				"focus": false,
-				"panel": "shared",
-				"showReuseMessage": false,
-				"clear": true
-			},
-			"args": [
-				"${file}",
-				"${fileDirname}/${fileBasenameNoExtension}.out",
-				"${fileDirname}/${fileBasenameNoExtension}.test",
-				"${fileDirname}/${fileBasenameNoExtension}.test.out"
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"group": "build",
-			"detail": "Compile and Run, check execution time, use filename.test and filename.test.out"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Custom Build and Run",
+            "type": "process",
+            "command": "/home/enoria/cpro/build.sh",
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "args": [
+                "${file}",
+                "${fileDirname}/${fileBasenameNoExtension}.out",
+                "${fileDirname}/${fileBasenameNoExtension}.test",
+                "${fileDirname}/${fileBasenameNoExtension}.test.out"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "build",
+            "detail": "Use filename.test and filename.test.out, compile and Run code, "
+        },
+        {
+            "label": "Common Build and Run",
+            "type": "process",
+            "command": "/home/enoria/cpro/build.sh",
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            },
+            "args": [
+                "${file}",
+                "${fileDirname}/${fileBasenameNoExtension}.out",
+                "/home/enoria/cpro/input.test",
+                "/home/enoria/cpro/output.test"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "build",
+            "detail": "Use input.test and output.test, compile and run code",
+            "problemMatcher": []
+        },
+        {
+            "label": "Timed Build and Run",
+            "type": "process",
+            "command": "/home/enoria/cpro/buildtimed.sh",
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "args": [
+                "${file}",
+                "${fileDirname}/${fileBasenameNoExtension}.out",
+                "${fileDirname}/${fileBasenameNoExtension}.test",
+                "${fileDirname}/${fileBasenameNoExtension}.test.out"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "group": "build",
+            "detail": "Compile and Run, check execution time, use filename.test and filename.test.out"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: gcc build active file",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Task generated by Debugger."
+        }
+    ]
 }

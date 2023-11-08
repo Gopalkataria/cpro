@@ -39,7 +39,7 @@ Matrix *mult_matrix(Matrix *A, Matrix *B)
 }
 Matrix *add_matrix(Matrix *A, Matrix *B)
 {
-    if ((A->num_cols != B->num_rows )|| (A->num_cols != B->num_cols))
+    if ((A->num_cols != B->num_rows) || (A->num_cols != B->num_cols))
         return NULL;
     Matrix *R = create_matrix(A->num_rows, B->num_cols);
     for (int i = 0; i < R->num_rows; i++)
@@ -98,11 +98,11 @@ long long int determinant(Matrix *M)
                     p++;
                 }
             }
-            if (flag)
-                ans += (M->data[i][0] * determinant(m));
-            else
-                ans -= (m->data[i][0] * determinant(m));
-            flag ^= 0;
+            // printf("\n %lld %lld\n  ", M->data[i][0] , determinant(m) ) ;
+            // print_matrix(m) ;
+            // printf("\n") ;
+            ans += flag * (M->data[i][0] * determinant(m));
+            flag *= -1;
             destroy_matrix(m);
         }
 

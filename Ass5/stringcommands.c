@@ -10,11 +10,9 @@ int main()
     scanf("%s", &inp[start]);
     int nquery, q, len;
     len = strlen(&inp[start]);
-    // printf("%d", len);
     end = start + len;
     int rev = 0;
 
-    // printf("%s\n", &inp[start]);
     scanf("%d", &nquery);
 
     for (int i = 0; i < nquery; i++)
@@ -23,7 +21,6 @@ int main()
         if (q == 1)
         {
             rev = rev ^ 1;
-            // printf("-  %d\n" , rev) ; 
             int temp;
             temp = start;
             start = end;

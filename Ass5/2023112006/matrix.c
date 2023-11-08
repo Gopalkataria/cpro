@@ -23,24 +23,28 @@ void destroy_matrix(Matrix *m)
     free(m->data);
     free(m);
 }
+Matrix *mult_matrix(Matrix *A, Matrix *B)
+{
+    if (A->num_cols != B->num_rows)
+        return NULL;
+    Matrix *R = create_matrix(A->num_rows, B->num_cols);
+    for (int i = 0; i < A->num_rows; i++)
+        for (int j = 0; j < B->num_cols; j++)
+        {
+            R->data[i][j] = 0;
+            for (int c = 0; c < A->num_cols; c++)
+                R->data[i][j] += A->data[i][c] * B->data[c][j];
+        }
+    return R;
+}
 Matrix *add_matrix(Matrix *A, Matrix *B)
 {
-    if (A->num_cols != B->num_rows || A->num_cols != B->num_cols)
+    if ((A->num_cols != B->num_rows )|| (A->num_cols != B->num_cols))
         return NULL;
     Matrix *R = create_matrix(A->num_rows, B->num_cols);
     for (int i = 0; i < R->num_rows; i++)
         for (int j = 0; j < R->num_cols; j++)
             R->data[i][j] = A->data[i][j] + B->data[i][j];
-    return R;
-}
-Matrix *mult_matrix(Matrix *A, Matrix *B)
-{
-    if (A->num_cols != B->num_rows || A->num_cols != B->num_cols)
-        return NULL;
-    Matrix *R = create_matrix(A->num_rows, B->num_cols);
-    for (int i = 0; i < R->num_rows; i++)
-        for (int j = 0; j < R->num_cols; j++)
-            R->data[i][j] = A->data[i][j] - B->data[i][j];
     return R;
 }
 Matrix *scalar_mult_matrix(long long int s, Matrix *M)
@@ -73,9 +77,10 @@ long long int determinant(Matrix *M)
     {
         return (M->data[0][0] * M->data[1][1]) - (M->data[1][0] * M->data[0][1]);
     }
-    else
+    else // recurse
     {
-        long long int ans = 0, k = -1;
+        long long int ans = 0;
+        int flag = 1;
         for (int i = 0; i < M->num_rows; i++)
         {
             Matrix *m = create_matrix(M->num_rows - 1, M->num_cols - 1);
@@ -93,12 +98,15 @@ long long int determinant(Matrix *M)
                     p++;
                 }
             }
-            printf("\n") ; 
-            print_matrix(m) ; 
-            ans += M->data[i][0] * (k *= -1) * determinant(m);
+            if (flag)
+                ans += (M->data[i][0] * determinant(m));
+            else
+                ans -= (m->data[i][0] * determinant(m));
+            flag ^= 0;
             destroy_matrix(m);
         }
-        return ans ;
+
+        return ans;
     }
 }
 // DO NOT MODIFY THE OUTPUT FORMAT of this function. Will be used for grading

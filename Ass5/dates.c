@@ -18,26 +18,38 @@ bool isperfect(char *str, int ind, int k)
     return true;
 }
 
-int main( ) {
+int main()
+{
 
-    int n , k ; 
-    scanf("%d %d", &n , &k ) ; 
-    char  inp[n+1] ; 
-    scanf("%s", inp ) ; 
+    int n, k;
+    scanf("%d %d", &n, &k);
+    char inp[n + 1];
+    char debug[k + 1];
+    scanf("%s", inp);
 
-    int h = 0 ; 
-    for( int i = 0 ; i < n ; ){
-        if ( isperfect( inp , i , k )){
-            h++ ; 
-            i += k ; 
-        } else {
-            i ++ ; 
+    int h = 0;
+    if ( n == k ){
+        printf("1\n") ; 
+        return 0 ; 
+    }
+    for (int i = 0; i < n;)
+    {
+        if (i + k > n)
+        {
+            break;
+        }
+        if (isperfect(inp, i, k))
+        {
+            h++;
+            i += k;
+        }
+        else
+        {
+            i++;
         }
     }
 
-    printf("%d", h ) ; 
+    printf("%d\n", h);
 
-
-
-    return  0 ; 
+    return 0;
 }

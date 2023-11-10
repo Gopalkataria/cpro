@@ -10,7 +10,6 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/Ass5/2023112006/a.out",
-            "args": ["< ${workspaceFolder}/Ass5/2023112006/main.test"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

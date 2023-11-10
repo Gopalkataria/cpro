@@ -122,3 +122,34 @@ void print_matrix(Matrix *m)
         printf("\n");
     }
 }
+
+Matrix *read_matrix_from_file(char *fname)
+{
+    FILE *file = fopen(fname, "r");
+    if (file == NULL)
+        return NULL;
+    int n, m;
+    fscanf(file, "%d %d", &n, &m);
+    Matrix *M = create_matrix(n, m);
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < m; j++)
+            fscanf(file, "%lld", &(M->data[i][j]));
+    return M;
+}
+
+int write_matrix_to_file(Matrix *m, char *fname)
+{
+    FILE *file = fopen(fname, "w");
+    if (file == NULL)
+        return -1;
+    printf("%d %d\n", m->num_rows, m->num_cols);
+    for (int i = 0; i < m->num_rows; i++)
+    {
+        for (int j = 0; j < m->num_cols; j++)
+        {
+            fprintf(file, "%lld ", m->data[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+    return 0;
+}

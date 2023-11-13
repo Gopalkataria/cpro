@@ -5,13 +5,9 @@
 #define true 1
 #define false 0
 
-bool isperfect(char *str, int ind, int k)
+bool isperfect(char *str, int k , char c )
 {
-    char c = str[ind];
-    if (ind + k >= strlen(str))
-        return false;
-
-    for (int i = ind; i < ind + k; i++)
+    for (int i = 0; i < k; i++)
         if (c != str[i])
             return false;
 
@@ -22,34 +18,43 @@ int main()
 {
 
     int n, k;
-    scanf("%d %d", &n, &k);
+    scanf(" %d %d", &n, &k);
     char inp[n + 1];
-    char debug[k + 1];
-    scanf("%s", inp);
+    char window[k + 1];
+    scanf(" %s", inp);
 
-    int h = 0;
-    if ( n == k ){
-        printf("1\n") ; 
-        return 0 ; 
-    }
-    for (int i = 0; i < n;)
+    if (n == k)
     {
-        if (i + k > n)
+        printf("1\n");
+        return 0;
+    }
+    if (k == 0)
+    {
+        printf("0\n");
+        return 0;
+    }
+    int max = 0;
+    for (char c = 'a'; c <= 'z'; c++)
+    {
+        int h = 0;
+        for (int i = 0; i < n;)
         {
-            break;
+            strncpy(window, inp + i, k);
+            // printf("%s  " , window  ) ;
+            if (isperfect(window, k , c ))
+            {
+                i = i + k;
+                h++;
+            }
+            else
+            {
+                i++;
+            }
         }
-        if (isperfect(inp, i, k))
-        {
-            h++;
-            i += k;
-        }
-        else
-        {
-            i++;
-        }
+        max = h > max ? h : max ; 
     }
 
-    printf("%d\n", h);
+    printf(" %d", max );
 
     return 0;
 }

@@ -14,6 +14,7 @@ Matrix *create_matrix(int r, int c)
     }
     return m;
 }
+
 void destroy_matrix(Matrix *m)
 {
     for (int i = 0; i < m->num_rows; i++)
@@ -23,6 +24,7 @@ void destroy_matrix(Matrix *m)
     free(m->data);
     free(m);
 }
+
 Matrix *mult_matrix(Matrix *A, Matrix *B)
 {
     if (A->num_cols != B->num_rows)
@@ -37,6 +39,7 @@ Matrix *mult_matrix(Matrix *A, Matrix *B)
         }
     return R;
 }
+
 Matrix *add_matrix(Matrix *A, Matrix *B)
 {
     if ((A->num_cols != B->num_rows) || (A->num_cols != B->num_cols))
@@ -142,7 +145,7 @@ int write_matrix_to_file(Matrix *m, char *fname)
     FILE *file = fopen(fname, "w");
     if (file == NULL)
         return -1;
-    printf("%d %d\n", m->num_rows, m->num_cols);
+    fprintf(file, "%d %d\n", m->num_rows, m->num_cols);
     for (int i = 0; i < m->num_rows; i++)
     {
         for (int j = 0; j < m->num_cols; j++)

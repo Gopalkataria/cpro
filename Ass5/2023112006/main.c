@@ -27,6 +27,10 @@ Matrix *input_matrix(int n)
 
 void output_matrix(Matrix *M, int n)
 {
+    if ( M == NULL ){
+        printf("ERROR : INVALID ARGUMENT\n") ; 
+        return ; 
+    }
     if (n == 0)
     {
         print_matrix(M);
@@ -153,6 +157,9 @@ int main()
             if (s != -1  )
             {
                 printf("%lld\n", s);
+            }
+            else if (s == -1 && A->num_cols == 1 && A->num_cols == 1 ){
+                printf("-1\n" ); 
             }
             else
             {

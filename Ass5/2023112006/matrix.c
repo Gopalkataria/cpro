@@ -101,9 +101,6 @@ long long int determinant(Matrix *M)
                     p++;
                 }
             }
-            // printf("\n %lld %lld\n  ", M->data[i][0] , determinant(m) ) ;
-            // print_matrix(m) ;
-            // printf("\n") ;
             ans += flag * (M->data[i][0] * determinant(m));
             flag *= -1;
             destroy_matrix(m);

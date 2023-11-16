@@ -3,8 +3,11 @@
 #include <stdlib.h>
 #include "matrix.h"
 
+#define errout printf("ERROR: INVALID ARGUMENT\n");
+
 Matrix *input_matrix(int n)
 {
+    // printf("fuck")  ;
     Matrix *M = NULL;
     if (n == 0)
     {
@@ -13,7 +16,7 @@ Matrix *input_matrix(int n)
         M = create_matrix(n, m);
         for (int i = 0; i < n; i++)
             for (int j = 0; j < m; j++)
-                scanf(" %lld", &(M->data[i][j]));
+                scanf("%lld", &(M->data[i][j]));
         return M;
     }
     else
@@ -21,15 +24,18 @@ Matrix *input_matrix(int n)
         char fname[100];
         scanf("%s", fname);
         M = read_matrix_from_file(fname);
+
+        // print_matrix(M) ;
     }
     return M;
 }
 
 void output_matrix(Matrix *M, int n)
 {
-    if ( M == NULL ){
-        printf("ERROR : INVALID ARGUMENT\n") ; 
-        return ; 
+    if (M == NULL)
+    {
+        printf("ERROR : INVALID ARGUMENT\n");
+        return;
     }
     if (n == 0)
     {
@@ -39,6 +45,7 @@ void output_matrix(Matrix *M, int n)
     else
     {
         char fname[100];
+        // print_matrix(M);
         scanf("%s", fname);
         write_matrix_to_file(M, fname);
     }
@@ -50,6 +57,7 @@ void log_to_file(char *inp, int n)
     if (fp == NULL)
     {
         fp = fopen("mx_history", "w");
+        // fprintf(fp, "LOG::history\n");
     }
     fprintf(fp, "LOG::%s %d\n", inp, n);
     fclose(fp);
@@ -85,7 +93,7 @@ int main()
             scanf("%d", &n);
         if ((n >> 1) != 0)
         {
-            printf("ERROR: INVALID ARGUMENT\n");
+            errout;
             continue;
         }
 
@@ -93,7 +101,18 @@ int main()
         {
             log_to_file(inp, n);
             A = input_matrix(n);
+            if (A == NULL)
+            {
+                errout;
+                continue;
+            }
+
             B = input_matrix(n);
+            if (B == NULL)
+            {
+                errout;
+                continue;
+            }
 
             C = add_matrix(A, B);
             if (C != NULL)
@@ -103,7 +122,7 @@ int main()
             }
             else
             {
-                printf("ERROR: INVALID ARGUMENT\n");
+                errout;
             }
             destroy_matrix(A);
             destroy_matrix(B);
@@ -112,7 +131,18 @@ int main()
         {
             log_to_file(inp, n);
             A = input_matrix(n);
+            if (A == NULL)
+            {
+                errout;
+                continue;
+            }
+
             B = input_matrix(n);
+            if (B == NULL)
+            {
+                errout;
+                continue;
+            }
             C = mult_matrix(A, B);
             if (C != NULL)
             {
@@ -121,7 +151,7 @@ int main()
             }
             else
             {
-                printf("ERROR: INVALID ARGUMENT\n");
+                errout;
             }
             destroy_matrix(A);
             destroy_matrix(B);
@@ -129,9 +159,14 @@ int main()
         else if (strcmp(inp, "scalar_mult_matrix") == 0)
         {
             log_to_file(inp, n);
+            scanf("%lld", &s);
 
             A = input_matrix(n);
-            scanf("%lld", &s);
+            if (A == NULL)
+            {
+                errout;
+                continue;
+            }
             C = scalar_mult_matrix(s, A);
             output_matrix(C, n);
             destroy_matrix(A);
@@ -142,6 +177,11 @@ int main()
             log_to_file(inp, n);
 
             A = input_matrix(n);
+            if (A == NULL)
+            {
+                errout;
+                continue;
+            }
             C = transpose_matrix(A);
             output_matrix(C, n);
             destroy_matrix(A);
@@ -152,25 +192,32 @@ int main()
             log_to_file(inp, n);
 
             A = input_matrix(n);
+            if (A == NULL)
+            {
+                errout;
+                continue;
+            }
 
             s = determinant(A);
-            if (s != -1  )
+            if (s != -1)
             {
                 printf("%lld\n", s);
             }
-            else if (s == -1 && A->num_cols == 1 && A->num_cols == 1 ){
-                printf("-1\n" ); 
+            else if (s == -1 && A->num_cols == A->num_rows)
+            {
+                printf("-1\n");
             }
             else
             {
-                printf("ERROR: INVALID ARGUMENT\n");
+                errout;
             }
             destroy_matrix(A);
         }
-        else if (strcmp(inp, "history") == 0) ; 
-        else 
+        else if (strcmp(inp, "history") == 0)
+            ;
+        else
         {
-            printf("ERROR: INVALID ARGUMENT\n");
+            errout;
         }
     }
     return 0;

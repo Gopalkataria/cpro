@@ -42,7 +42,7 @@ Matrix *mult_matrix(Matrix *A, Matrix *B)
 
 Matrix *add_matrix(Matrix *A, Matrix *B)
 {
-    if ((A->num_cols != B->num_rows) || (A->num_cols != B->num_cols))
+    if ((A->num_rows != B->num_rows) || (A->num_cols != B->num_cols))
         return NULL;
     Matrix *R = create_matrix(A->num_rows, B->num_cols);
     for (int i = 0; i < R->num_rows; i++)
@@ -134,22 +134,24 @@ Matrix *read_matrix_from_file(char *fname)
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
             fscanf(file, "%lld", &(M->data[i][j]));
+    fclose(file) ;
     return M;
 }
 
 int write_matrix_to_file(Matrix *m, char *fname)
 {
     FILE *file = fopen(fname, "w");
-    if (file == NULL)
+    if (file == NULL )
         return -1;
-    fprintf(file, "%d %d\n", m->num_rows, m->num_cols);
+    fprintf(file, " %d %d\n", m->num_rows, m->num_cols);
     for (int i = 0; i < m->num_rows; i++)
     {
         for (int j = 0; j < m->num_cols; j++)
         {
-            fprintf(file, "%lld ", m->data[i][j]);
+            fprintf(file, " %lld ", m->data[i][j]);
         }
         fprintf(file, "\n");
     }
+    fclose(file) ; 
     return 0;
 }

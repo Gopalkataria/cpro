@@ -8,8 +8,6 @@
 #define min(a, b) ((a) < (b) ? (a) : (b)) // /  min function
 #define max(a, b) ((a) > (b) ? (a) : (b)) // /  max function
 
-#define iffy(i, t, e) ((i) ? (t) : (e))
-
 #define out(x) printf("%d ", x)
 #define inp(x) scanf("%d", &x)
 #define endl printf("\n");

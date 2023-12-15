@@ -56,7 +56,7 @@ int checkpuzz()
       for (int j = 0; j < 9; j++)
       	check[puzz[i][j]] += 1;
 
-      for (int j = 1; j < 10; j++)
+      for (int j = 1; j < 15; j++)
       {
       	if (check[j] != 1 && check[j] != 0)
       	{
